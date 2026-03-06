@@ -20,3 +20,6 @@ local.properties
 tmp/
 *.gemini
 .AI
+/.agent/
+/.agents/
+
