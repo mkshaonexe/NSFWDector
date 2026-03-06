@@ -58,7 +58,13 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     // Firebase ML Vision for NSFW detection
-    implementation("com.google.firebase:firebase-ml-vision:24.1.0")
-    implementation("com.google.firebase:firebase-ml-vision-automl:18.0.3")
-    implementation("com.google.firebase:firebase-ml-model-interpreter:22.0.4")
+    implementation("com.google.firebase:firebase-ml-vision:24.1.0") {
+        exclude(group = "com.google.android.gms", module = "play-services-vision-common")
+    }
+    implementation("com.google.firebase:firebase-ml-vision-automl:18.0.3") {
+        exclude(group = "com.google.android.gms", module = "play-services-vision-common")
+    }
+    implementation("com.google.firebase:firebase-ml-model-interpreter:22.0.4") {
+        exclude(group = "com.google.android.gms", module = "play-services-vision-common")
+    }
 }

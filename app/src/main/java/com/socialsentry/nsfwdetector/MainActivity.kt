@@ -26,15 +26,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import com.nipunru.nsfwdetector.NSFWDetector
 import com.socialsentry.nsfwdetector.ui.theme.NSFWDetectorTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Initialize Firebase required for ML Kit Local Model
+        // Initialize Firebase locally with manual options (fixes crash without google-services.json)
         try {
-            FirebaseApp.initializeApp(this)
+            if (FirebaseApp.getApps(this).isEmpty()) {
+                val options = FirebaseOptions.Builder()
+                    .setApplicationId("1:123456789012:android:abcdef1234567890")
+                    .setProjectId("nsfw-local-detector")
+                    .setApiKey("local-api-key-not-used")
+                    .build()
+                FirebaseApp.initializeApp(this, options)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
